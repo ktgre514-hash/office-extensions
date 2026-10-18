@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+           xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.0"
+           xsi:type="MailApp">
+  <Id>e544373e-7634-4ccd-ab57-784282ca9ba7</Id>
+  <Version>1.0.0.0</Version>
+  <ProviderName>ktgre514-hash</ProviderName>
+  <DefaultLocale>en-US</DefaultLocale>
+  <DisplayName DefaultValue="Hold Mode"/>
+  <Description DefaultValue="Hold all outgoing mail until a time you choose. Mail is held on the server, so Outlook doesn't need to stay open."/>
+  <IconUrl DefaultValue="https://ktgre514-hash.github.io/office-extensions/outlook-hold-mode/assets/icon-64.png"/>
+  <HighResolutionIconUrl DefaultValue="https://ktgre514-hash.github.io/office-extensions/outlook-hold-mode/assets/icon-128.png"/>
+  <SupportUrl DefaultValue="https://github.com/ktgre514-hash/office-extensions"/>
+  <AppDomains>
+    <AppDomain>https://ktgre514-hash.github.io</AppDomain>
+  </AppDomains>
+  <Hosts>
+    <Host Name="Mailbox"/>
+  </Hosts>
+  <Requirements>
+    <Sets>
+      <Set Name="Mailbox" MinVersion="1.1"/>
+    </Sets>
+  </Requirements>
+  <FormSettings>
+    <Form xsi:type="ItemRead">
+      <DesktopSettings>
+        <SourceLocation DefaultValue="https://ktgre514-hash.github.io/office-extensions/outlook-hold-mode/taskpane.html"/>
+        <RequestedHeight>250</RequestedHeight>
+      </DesktopSettings>
+    </Form>
+  </FormSettings>
+  <Permissions>ReadWriteItem</Permissions>
+  <Rule xsi:type="RuleCollection" Mode="Or">
+    <Rule xsi:type="ItemIs" ItemType="Message" FormType="Edit"/>
+    <Rule xsi:type="ItemIs" ItemType="Message" FormType="Read"/>
+  </Rule>
+  <DisableEntityHighlighting>false</DisableEntityHighlighting>
+
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides" xsi:type="VersionOverridesV1_0">
+    <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides/1.1" xsi:type="VersionOverridesV1_1">
+      <Requirements>
+        <bt:Sets DefaultMinVersion="1.13">
+          <bt:Set Name="Mailbox"/>
+        </bt:Sets>
+      </Requirements>
+      <Hosts>
+        <Host xsi:type="MailHost">
+          <!-- Event runtime: commands.html in new Outlook / web; classic Outlook on Windows loads the JS file directly. -->
+          <Runtimes>
+            <Runtime resid="WebViewRuntime.Url">
+              <Override type="javascript" resid="JSRuntime.Url"/>
+            </Runtime>
+          </Runtimes>
+          <DesktopFormFactor>
+            <FunctionFile resid="WebViewRuntime.Url"/>
+
+            <!-- Reading mail: ribbon button opens a pinnable status/picker pane. -->
+            <ExtensionPoint xsi:type="MessageReadCommandSurface">
+              <OfficeTab id="TabDefault">
+                <Group id="holdReadGroup">
+                  <Label resid="Group.Label"/>
+                  <Control xsi:type="Button" id="holdReadButton">
+                    <Label resid="Button.Label"/>
+                    <Supertip>
+                      <Title resid="Button.Label"/>
+                      <Description resid="Button.Tooltip"/>
+                    </Supertip>
+                    <Icon>
+                      <bt:Image size="16" resid="Icon.16x16"/>
+                      <bt:Image size="32" resid="Icon.32x32"/>
+                      <bt:Image size="80" resid="Icon.80x80"/>
+                    </Icon>
+                    <Action xsi:type="ShowTaskpane">
+                      <SourceLocation resid="Taskpane.Url"/>
+                      <SupportsPinning>true</SupportsPinning>
+                    </Action>
+                  </Control>
+                </Group>
+              </OfficeTab>
+            </ExtensionPoint>
+
+            <!-- Writing mail: same pane from the compose ribbon. -->
+            <ExtensionPoint xsi:type="MessageComposeCommandSurface">
+              <OfficeTab id="TabDefault">
+                <Group id="holdComposeGroup">
+                  <Label resid="Group.Label"/>
+                  <Control xsi:type="Button" id="holdComposeButton">
+                    <Label resid="Button.Label"/>
+                    <Supertip>
+                      <Title resid="Button.Label"/>
+                      <Description resid="Button.Tooltip"/>
+                    </Supertip>
+                    <Icon>
+                      <bt:Image size="16" resid="Icon.16x16"/>
+                      <bt:Image size="32" resid="Icon.32x32"/>
+                      <bt:Image size="80" resid="Icon.80x80"/>
+                    </Icon>
+                    <Action xsi:type="ShowTaskpane">
+                      <SourceLocation resid="Taskpane.Url"/>
+                    </Action>
+                  </Control>
+                </Group>
+              </OfficeTab>
+            </ExtensionPoint>
+
+            <!-- Banner on new emails, and the hold applied on Send. -->
+            <ExtensionPoint xsi:type="LaunchEvent">
+              <LaunchEvents>
+                <LaunchEvent Type="OnNewMessageCompose" FunctionName="onNewMessageComposeHandler"/>
+                <LaunchEvent Type="OnMessageSend" FunctionName="onMessageSendHandler" SendMode="PromptUser"/>
+              </LaunchEvents>
+              <SourceLocation resid="WebViewRuntime.Url"/>
+            </ExtensionPoint>
+          </DesktopFormFactor>
+        </Host>
+      </Hosts>
+      <Resources>
+        <bt:Images>
+          <bt:Image id="Icon.16x16" DefaultValue="https://ktgre514-hash.github.io/office-extensions/outlook-hold-mode/assets/icon-16.png"/>
+          <bt:Image id="Icon.32x32" DefaultValue="https://ktgre514-hash.github.io/office-extensions/outlook-hold-mode/assets/icon-32.png"/>
+          <bt:Image id="Icon.80x80" DefaultValue="https://ktgre514-hash.github.io/office-extensions/outlook-hold-mode/assets/icon-80.png"/>
+        </bt:Images>
+        <bt:Urls>
+          <bt:Url id="Taskpane.Url" DefaultValue="https://ktgre514-hash.github.io/office-extensions/outlook-hold-mode/taskpane.html"/>
+          <bt:Url id="WebViewRuntime.Url" DefaultValue="https://ktgre514-hash.github.io/office-extensions/outlook-hold-mode/commands.html"/>
+          <bt:Url id="JSRuntime.Url" DefaultValue="https://ktgre514-hash.github.io/office-extensions/outlook-hold-mode/hold-mode.js"/>
+        </bt:Urls>
+        <bt:ShortStrings>
+          <bt:String id="Group.Label" DefaultValue="Hold Mode"/>
+          <bt:String id="Button.Label" DefaultValue="Hold Mode"/>
+        </bt:ShortStrings>
+        <bt:LongStrings>
+          <bt:String id="Button.Tooltip" DefaultValue="Hold all outgoing mail until a time you choose, or turn hold mode off."/>
+        </bt:LongStrings>
+      </Resources>
+    </VersionOverrides>
+  </VersionOverrides>
+</OfficeApp>

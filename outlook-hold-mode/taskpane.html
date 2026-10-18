@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hold Mode</title>
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <script src="hold-mode.js"></script>
+  <link rel="stylesheet" href="taskpane.css">
+</head>
+<body>
+  <section id="status" class="status off" aria-live="polite">
+    <div class="status-icon" aria-hidden="true"></div>
+    <div class="status-text">
+      <div id="statusTitle" class="status-title">Hold mode is off</div>
+      <div id="statusDetail" class="status-detail">Mail sends normally.</div>
+    </div>
+    <button id="turnOff" class="btn" hidden>Turn off</button>
+  </section>
+
+  <section class="picker">
+    <h2 id="pickerTitle">Hold outgoing mail until…</h2>
+
+    <ul id="presets" class="presets"></ul>
+
+    <form id="customForm" class="custom" autocomplete="off">
+      <label for="whenText" class="sr-only">Type a time</label>
+      <input id="whenText" type="text" spellcheck="false"
+             placeholder="Type a time: tomorrow 9am, fri 2pm, in 90m">
+      <div id="preview" class="preview">&nbsp;</div>
+      <button id="applyText" type="submit" class="btn primary" disabled>Hold until…</button>
+    </form>
+
+    <details class="calendar">
+      <summary>Pick on a calendar</summary>
+      <form id="calendarForm">
+        <input id="whenPicker" type="datetime-local" aria-label="Date and time">
+        <button type="submit" class="btn">Hold until this time</button>
+      </form>
+    </details>
+  </section>
+
+  <section class="settings">
+    <label for="morning">Morning time</label>
+    <input id="morning" type="time" value="08:00">
+    <p class="hint">Used for “tomorrow”, “Monday”, and the morning presets.</p>
+  </section>
+
+  <p id="message" class="message" role="status"></p>
+
+  <footer class="note">
+    In classic Outlook, held emails don't appear in the Outbox and can't be cancelled after you click Send.
+    You'll find them in Sent Items. In new Outlook they wait in Drafts until they go out.
+  </footer>
+
+  <script src="taskpane.js"></script>
+</body>
+</html>

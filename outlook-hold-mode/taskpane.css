@@ -1,0 +1,188 @@
+:root {
+  --bg: #ffffff;
+  --fg: #242424;
+  --muted: #616161;
+  --line: #e0e0e0;
+  --hover: #f5f5f5;
+  --accent: #0f6cbd;
+  --accent-fg: #ffffff;
+  --on-bg: #fff4ce;
+  --on-line: #f2c661;
+  --on-fg: #6b4a00;
+  --on-dot: #c98400;
+  --off-bg: #f5f5f5;
+  --off-dot: #9e9e9e;
+  --error: #b10e1c;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1f1f1f;
+    --fg: #f0f0f0;
+    --muted: #adadad;
+    --line: #3d3d3d;
+    --hover: #2b2b2b;
+    --accent: #479ef5;
+    --accent-fg: #0a0a0a;
+    --on-bg: #3d2f05;
+    --on-line: #7a5b0c;
+    --on-fg: #ffd97a;
+    --on-dot: #f2b600;
+    --off-bg: #292929;
+    --off-dot: #757575;
+    --error: #ff99a4;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 12px;
+  background: var(--bg);
+  color: var(--fg);
+  font: 14px/1.4 "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+h2 {
+  margin: 18px 0 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);
+}
+
+/* ---------- status card ---------- */
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--off-bg);
+}
+.status.on {
+  background: var(--on-bg);
+  border-color: var(--on-line);
+  color: var(--on-fg);
+}
+.status-icon {
+  flex: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--off-dot);
+}
+.status.on .status-icon {
+  background: var(--on-dot);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--on-dot) 25%, transparent);
+}
+.status-text { flex: 1; min-width: 0; }
+.status-title { font-weight: 600; }
+.status-detail { font-size: 13px; }
+.status:not(.on) .status-detail { color: var(--muted); }
+
+/* ---------- buttons ---------- */
+
+.btn {
+  font: inherit;
+  font-size: 13px;
+  padding: 5px 12px;
+  border-radius: 4px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--fg);
+  cursor: pointer;
+}
+.btn:hover { background: var(--hover); }
+.btn.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-fg);
+  font-weight: 600;
+}
+.btn.primary:hover { filter: brightness(1.08); }
+.btn:disabled { opacity: 0.5; cursor: default; filter: none; }
+.btn:focus-visible, .preset:focus-visible, input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+/* ---------- presets ---------- */
+
+.presets {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.presets li + li { border-top: 1px solid var(--line); }
+.preset {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: 9px 12px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.preset:hover { background: var(--hover); }
+.preset-time { color: var(--muted); font-size: 13px; white-space: nowrap; }
+
+/* ---------- custom entry ---------- */
+
+.custom { margin-top: 12px; }
+input[type="text"], input[type="datetime-local"], input[type="time"] {
+  width: 100%;
+  font: inherit;
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  border-bottom-color: var(--muted);
+  border-radius: 4px;
+  background: var(--bg);
+  color: var(--fg);
+  color-scheme: light dark;
+}
+.preview {
+  min-height: 1.4em;
+  margin: 6px 0 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.preview.ok { color: var(--fg); }
+.preview.bad { color: var(--error); }
+
+.calendar { margin-top: 12px; font-size: 13px; }
+.calendar summary { cursor: pointer; color: var(--accent); }
+.calendar form { display: grid; gap: 8px; margin-top: 8px; justify-items: start; }
+
+/* ---------- settings & footer ---------- */
+
+.settings {
+  margin-top: 20px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+}
+.settings label { display: block; font-weight: 600; margin-bottom: 4px; }
+.settings input { width: 140px; }
+.hint { margin: 4px 0 0; color: var(--muted); }
+
+.message { min-height: 1.4em; font-size: 13px; color: var(--error); }
+
+.note {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--muted);
+}
