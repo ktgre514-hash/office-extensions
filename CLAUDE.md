@@ -1,6 +1,6 @@
 # office-extensions
 
-Small Office add-ins for Kyle, one per subfolder.
+Small Office add-ins for the owner, one per subfolder.
 
 ## Stack
 - Plain static HTML/CSS/JS, no build step, no dependencies. Office.js loaded from Microsoft's CDN.
@@ -11,8 +11,8 @@ Small Office add-ins for Kyle, one per subfolder.
 ## Deployment
 - GitHub Pages from `main` of the public repo `ktgre514-hash/office-extensions`:
   https://ktgre514-hash.github.io/office-extensions/
-- Pushing to `main` deploys to what Kyle's Outlook loads. Work on a branch and merge via PR.
-- Kyle installs manifests with **Add a custom add-in → Add from File** (Add from URL isn't offered on his account).
+- Pushing to `main` deploys to what the owner's Outlook loads. Work on a branch and merge via PR.
+- The owner installs manifests with **Add a custom add-in → Add from File** (Add from URL isn't offered on their account).
   Code changes need no reinstall; manifest changes do, so bump `<Version>` and send him the new file.
 
 ## Checks
