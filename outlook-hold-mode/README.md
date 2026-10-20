@@ -8,10 +8,16 @@ Works in classic Outlook for Windows, new Outlook for Windows, and Outlook on th
 
 ## Install
 
-1. Open **https://aka.ms/olksideload** in a browser (signs in to Outlook on the web and opens the add-ins dialog).
-2. **My add-ins → Custom Addins → Add a custom add-in → Add from URL**, and paste:
-   `https://ktgre514-hash.github.io/office-extensions/outlook-hold-mode/manifest.xml`
-3. Restart classic Outlook. The add-in syncs from your mailbox; it can take a few minutes to appear.
+1. Download `manifest.xml`: open
+   https://github.com/ktgre514-hash/office-extensions/blob/main/outlook-hold-mode/manifest.xml
+   and click **Download raw file**.
+2. In classic Outlook: **Home → Get Add-ins → My add-ins → Custom Addins → Add a custom add-in → Add from File**,
+   and pick the downloaded file. (Some accounts also offer **Add from URL**; paste
+   `https://ktgre514-hash.github.io/office-extensions/outlook-hold-mode/manifest.xml` there.)
+3. Restart classic Outlook if the button doesn't appear.
+
+The manifest only points at the files on GitHub Pages, so code changes reach Outlook without reinstalling.
+Reinstall only when `manifest.xml` itself changes (bump its `<Version>` when it does).
 
 ## Use
 
